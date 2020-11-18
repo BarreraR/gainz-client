@@ -12,7 +12,7 @@ export default function ExerciseMain() {
     <option 
       key={ex.id} 
       value={ex.id}>
-        {ex.name}
+        {ex.exercise}
     </option>);
 
   function handleSubmit(e){
@@ -116,7 +116,7 @@ export default function ExerciseMain() {
         </>
       )
       : ( 
-        <h3>Exercise: {exercises.length>0? exercises[parseInt(exercise) -1].name:''}</h3>
+        <h3>Exercise: {exercises.length>0? exercises[parseInt(exercise) -1].exercise:''}</h3>
       );
   }
 

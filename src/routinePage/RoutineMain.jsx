@@ -7,6 +7,10 @@ export default function ExerciseMain(){
   const { routine } = useParams();
   const history = useHistory();
 
+  function getPos(){
+    return routines.findIndex(r => r.id === parseInt(routine));
+  }
+
   function handleClick(ex){
     console.log(ex.name);
     history.push(`/add-exercise-data/${ex.id}`);
@@ -14,13 +18,13 @@ export default function ExerciseMain(){
 
   function displayExercises(){
     return routines.length > 0 
-      ? routines[routine-1].exercises.map(ex => <p key={ex.id} onClick={()=> handleClick(ex)}>{ex.name}</p>)
+      ? routines[getPos()].exercises.map(ex => <p key={ex.id} onClick={()=> handleClick(ex)}>{ex.name}</p>)
       : '';
   }
 
   return (      
     <div>
-      <h2>Routine: {routines.length > 0? routines[parseInt(routine)-1].name :''}</h2>
+      <h2>Routine: {routines.length > 0? routines[getPos()].name :''}</h2>
       <div>
         <h3>Your Exercicses!</h3>
         (click on an exercise to enter data)

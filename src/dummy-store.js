@@ -12,7 +12,7 @@ const store = {
       'exercise': 'pull-ups', 
       'sets': 3,
       'reps': [ 10, 10, 7 ],
-      'weights' : [ 135, 135, 135, ],
+      'weights' : [ 135, 135, 135 ],
       'date': '2019-12-10',
       'user_id': 2
     },

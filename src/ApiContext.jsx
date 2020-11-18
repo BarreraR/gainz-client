@@ -4,4 +4,5 @@ export default React.createContext({
   user: {},   
   exercise_records: [], 
   routines: [],
+  exercises: [],
 });

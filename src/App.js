@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import STORE from './dummy-store';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import ApiContext from './ApiContext'
 import LandingMain from './landingPage/LandingMain';
 import LandingNav from './landingNav/LandingNav';
 import HomeMain from './homePage/HomeMain';
-import ExerciseNav from './mainNav/MainNav';
 import RoutineMain from './routinePage/RoutineMain';
 import ExerciseMain from './exercisePage/ExerciseMain';
 import CreateRoutineMain from './createRoutinePage/CreateRoutineMain';
+import MainNav from './mainNav/MainNav';
+import LoginMain from './loginMain/LoginMain';
+import SignupMain from './signupMain/SignupMain';
+import config from './config';
+import './App.css';
 
 class App extends Component {
   // does state contain users or just the individual user?
@@ -24,27 +28,58 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      user : STORE.users[1], 
-      exercise_records: STORE.exercise_records, 
-      routines: STORE.routines,
-      exercises: STORE.exercises
+    // this.setState({
+    //   user : STORE.users[1], 
+    //   exercise_records: STORE.exercise_records, 
+    //   routines: STORE.routines,
+    //   exercises: STORE.exercises
+    // });
+
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/exercises`),
+      fetch(`${config.API_ENDPOINT}/routines`),
+      fetch(`${config.API_ENDPOINT}/records`)
+    ])
+    .then(([exercisesRes, routinesRes, recordsRes]) => {
+      if(!exercisesRes.ok)
+        return exercisesRes.json().then(e=> Promise.reject(e));
+      if(!routinesRes.ok)
+        return routinesRes.json().then(e=> Promise.reject(e));
+      if(!recordsRes.ok)
+        return recordsRes.json().then(e=> Promise.reject(e));
+
+      return Promise.all([exercisesRes.json(), routinesRes.json(), recordsRes.json()])
+    })
+    .then(([exercises, routines, exercise_records]) => {
+      this.setState({user : STORE.users[0], exercises, routines, exercise_records});
+    })
+    .catch(error => {
+      console.error({error});
     });
   }
 
   renderNavRoutes(){
     return (
       <div>
-        {['/', '/login/:newUser'].map(path => 
+        {['/', '/login', '/signup'].map(path => 
           <Route 
             exact
             key={path}
             path={path}
             component={LandingNav}
           /> 
-        )};
+        )}
 
-        <Route path='/home/:routine/:exercise' component={ExerciseNav}/>
+        {['/home', '/routine', '/add-exercise-data', '/add-routine']
+          .map(path =>
+            <Route 
+              key={path}
+              path={path}
+              component={MainNav}
+            />
+          )
+        }
+
       </div>
     );
   }
@@ -52,14 +87,9 @@ class App extends Component {
   renderMainRoutes(){
     return (
       <div>
-        {/* {['/', '/login/:newUser'].map(path => 
-          <Route 
-            exact
-            key={path}
-            path={path}
-            component={LandingMain}
-          /> 
-        )}; */}
+        <Route exact path='/' component={LandingMain}/>
+        <Route exact path='/login' component={LoginMain}/>
+        <Route exact path='/signup' component={SignupMain}/>
 
         <Route exact path='/home' component={HomeMain}/>
         <Route exact path='/routine/:routine' component={RoutineMain}/>
@@ -78,15 +108,18 @@ class App extends Component {
       routines: this.state.routines,
       exercises: this.state.exercises
     };
+
     return (
       <ApiContext.Provider value={value}>
         <div className='App'>
-          {/* <nav className="App_nav">{this.renderNavRoutes()}</nav> */}
           <header className="App_header">
-            <h1>
-              Gainz
-            </h1>
+            <Link to='/'>
+              <h1>
+                Gainz
+              </h1>
+            </Link>
           </header>
+          <nav className="App_nav">{this.renderNavRoutes()}</nav>
           <main className="App_main">{this.renderMainRoutes()}</main>
         </div>
       </ApiContext.Provider>

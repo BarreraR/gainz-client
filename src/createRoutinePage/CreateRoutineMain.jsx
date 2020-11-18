@@ -13,7 +13,7 @@ export default function CreateRoutineMain() {
   const [ routine, setRoutine ] = useState([]);
   const [ eId, setEId ] = useState(0);
   const [ routineName, setRoutineName ] = useState('');
-  const [ exerciseList, setExerciseList] = useState(exercises);
+  const [ exerciseList, setExerciseList] = useState(exercises); // use effect with api 
 
   function createExerciseList(exercises){
     return exercises
@@ -21,7 +21,7 @@ export default function CreateRoutineMain() {
         <option 
           key={exercise.id} 
           value={exercise.id}>
-            {exercise.name}
+            {exercise.exercise}
         </option>
       );
   }
@@ -96,7 +96,7 @@ export default function CreateRoutineMain() {
       <div>
         {routine
           .map(ex=>
-            <div key={ex.id}>{ex.name}: 
+            <div key={ex.id}>{ex.exercise}: 
               <button type='button' onClick={()=>removeExercise(ex)}>
                 remove
               </button></div>

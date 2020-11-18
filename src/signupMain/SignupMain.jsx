@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function LandingMain() {
+export default function SignupMain() {
   return (
     <div>
-      landing
+      signup
     </div>
   );
 }
