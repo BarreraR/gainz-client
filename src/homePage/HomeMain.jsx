@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ApiContext from '../ApiContext';
 import ProgressComponent from '../Components/ProgressComponent';
+import './HomeMain.css';
 
 export default function ExerciseMain(){
   const history = useHistory();
@@ -31,13 +32,10 @@ export default function ExerciseMain(){
   
   
 return (      
-    <div>
+    <div className='Home_Main'>
       {console.log(user) /* This is temporary, user will be created 100% in login */}
       <h2>Profile: {user !== undefined ? user.name: ''}</h2>
-      <div>
-        <h3>Your progress</h3>
-        <ProgressComponent/>  
-      </div>
+
       <div>
         <h3>Your Routines!</h3>
         <p>Select from one of your saved routines!</p>
@@ -46,6 +44,12 @@ return (
           {routinesList}
         </select>
       </div>
+
+      <div>
+        <h3>Your progress</h3>
+        <ProgressComponent/>  
+      </div>
+
     </div>
   );
 }

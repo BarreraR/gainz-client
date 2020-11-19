@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import ApiContext from '../ApiContext';
+import './ExerciseMain.css'
 
 export default function ExerciseMain() {
   const [inputs, setInputs] = useState([]); 
@@ -80,15 +81,18 @@ export default function ExerciseMain() {
     let temp = [];
     for(let i = 1; i <= e.target.value; i++){
       temp.push(
-        <div key={`set_${i}`}>
+        <div className='Exercise_Main_Set' key={`set_${i}`}>
+          <span>Set {i}</span>
           <label htmlFor={`set_${i}_reps`}>
-            Set {i}- Reps:
-          </label>
+            Reps:
           <input type='number' name={`set_${i}_reps`} min='1' placeholder='1'/>
-          <label htmlFor={`set_${i}_weight`}>
-            Set {i}- weight (lbs):
           </label>
+
+          <label htmlFor={`set_${i}_weight`}>
+            Weight (lbs):
           <input type='number' name={`set_${i}_weight`} min='0' step='2.5' placeholder='0'/>
+          </label>
+
         </div>
       );
     }
@@ -122,7 +126,7 @@ export default function ExerciseMain() {
 
   return (
     <div>
-      <form onSubmit={e => handleSubmit(e)}>
+      <form className='Exercise_Main_Form' onSubmit={e => handleSubmit(e)}>
         {renderExercise()}
         <label htmlFor='sets'>
           Sets:

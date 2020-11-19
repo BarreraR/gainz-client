@@ -25,8 +25,16 @@ Body {
 }
 
 .App_main {
+  /* color: yellow; */
   background-color: gray;
   margin: 10px;
   padding: 10px;
   border-radius: 10px;
+}
+
+@media all and (min-width: 800px){
+  .App {
+    max-width: 800px;
+    margin: auto;
+  }  
 }

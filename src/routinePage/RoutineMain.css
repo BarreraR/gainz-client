@@ -1,0 +1,29 @@
+.Routine_Main {
+  text-align: center;
+}
+
+.Routine_Main_List {
+  display: flex;
+  flex-direction: column    ;
+  padding: 0;
+}
+
+.Routine_Main_Exercise {
+  flex: 1;
+  width: 55%;
+  text-decoration: inherit;
+  margin: 10px auto;
+  padding: 10px 0;
+  color: yellow;
+  /* background-color: indigo; */
+  border-radius: 10px;
+  transition: 0.5s;
+  background: linear-gradient( indigo 0%, black 20%);
+
+  
+}
+
+.Routine_Main_Exercise:hover {
+  width: 60%;
+  background: linear-gradient( indigo 0%, black 50% );
+}

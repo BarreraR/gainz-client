@@ -1,0 +1,25 @@
+.Home_Main {
+  text-align: center;
+}
+
+h2 {
+  color:yellow;
+}
+
+h3 {
+  color: indigo;
+}
+
+p {
+  font-weight: 500;
+}
+
+select {
+  font-weight: 600;
+  background-color: purple;
+  color: yellow;
+  width: 100%;
+  max-width: 300px;
+  font-size: 20px;
+}
+

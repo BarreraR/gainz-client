@@ -19,17 +19,18 @@
   margin: 0 10px;
   flex:1;
   text-align: center;
-  color: white; 
+  color: Yellow; 
   text-decoration: none;
   border-radius: 10px;
 }
 
 .Main_Nav_Button.active{
-  color: indigo;
-  background-color: gray;
+  /* color: indigo; */
+  background-color: darkgray;
 }
 
 .Main_Nav_Button:hover{
-  color: yellow;
+  color: white;
+  background-color: gray;
 }
 

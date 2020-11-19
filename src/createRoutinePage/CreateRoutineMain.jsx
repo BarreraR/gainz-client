@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import ApiContext from '../ApiContext';
 import { useHistory } from 'react-router-dom';
+import './CreateRoutineMain.css';
 
 export default function CreateRoutineMain() {
   // TODO:
@@ -77,7 +78,7 @@ export default function CreateRoutineMain() {
   }
 
   return(
-    <form onSubmit={(e) =>handleSubmit(e)}>
+    <form className='Create_Routine_Main_Form' onSubmit={(e) =>handleSubmit(e)}>
       <h2>Create a routine!</h2>
       <label>Enter a name for the routine: </label>
       <br/>
@@ -96,7 +97,7 @@ export default function CreateRoutineMain() {
       <div>
         {routine
           .map(ex=>
-            <div key={ex.id}>{ex.exercise}: 
+            <div className='Create_Routine_Main_Exercise' key={ex.id}><span>{ex.exercise}</span>  
               <button type='button' onClick={()=>removeExercise(ex)}>
                 remove
               </button></div>
