@@ -8,7 +8,7 @@ export default function MainNav(){
         <button>Login</button>
       </NavLink>
       <NavLink to='/signup'>
-        <button>Singup</button>
+        <button>Signup</button>
       </NavLink>
     </div>
   );
