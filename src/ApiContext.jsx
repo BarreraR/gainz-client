@@ -5,4 +5,5 @@ export default React.createContext({
   exercise_records: [], 
   routines: [],
   exercises: [],
+  addRoutine: () => {}
 });

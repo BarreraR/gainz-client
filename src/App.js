@@ -10,7 +10,7 @@ import ExerciseMain from './exercisePage/ExerciseMain';
 import CreateRoutineMain from './createRoutinePage/CreateRoutineMain';
 import MainNav from './mainNav/MainNav';
 import LoginMain from './loginMain/LoginMain';
-import SignupMain from './signupMain/SignupMain';
+import RegisterMain from './registerMain/RegisterMain'; 
 import config from './config';
 import './App.css';
 
@@ -58,6 +58,10 @@ class App extends Component {
     });
   }
 
+  addRoutine = newRoutine => {
+    this.setState({routines: [...this.state.routines, newRoutine]});
+  }
+
   renderNavRoutes(){
     return (
       <div>
@@ -89,7 +93,7 @@ class App extends Component {
       <div>
         <Route exact path='/' component={LandingMain}/>
         <Route exact path='/login' component={LoginMain}/>
-        <Route exact path='/signup' component={SignupMain}/>
+        <Route exact path='/signup' component={RegisterMain}/>
 
         <Route exact path='/home' component={HomeMain}/>
         <Route exact path='/routine/:routine' component={RoutineMain}/>
@@ -106,7 +110,8 @@ class App extends Component {
       user: this.state.user,
       exercise_records: this.state.exercise_records,
       routines: this.state.routines,
-      exercises: this.state.exercises
+      exercises: this.state.exercises,
+      addRoutine: this.addRoutine
     };
 
     return (

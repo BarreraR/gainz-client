@@ -19,7 +19,7 @@ export default function ExerciseMain() {
             key={ex.id}
             to={`/add-exercise-data/${ex.id}`}
           >
-            {ex.name}
+            {ex.exercise}
           </Link  >
         ))
       : "";
