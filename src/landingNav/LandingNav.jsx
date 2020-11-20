@@ -5,10 +5,10 @@ export default function MainNav(){
   return (
     <div>
       <NavLink to='/login'>
-        <button>Register</button>
+        <button>login</button>
       </NavLink>
       <NavLink to='/signup'>
-        <button>Signup</button>
+        <button>register</button>
       </NavLink>
     </div>
   );

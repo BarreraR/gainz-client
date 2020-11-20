@@ -62,6 +62,10 @@ class App extends Component {
     this.setState({routines: [...this.state.routines, newRoutine]});
   }
 
+  addRecord = newRecord => {
+    this.setState({records: [...this.state.exercise_records, newRecord]});
+  }
+
   renderNavRoutes(){
     return (
       <div>
@@ -111,7 +115,8 @@ class App extends Component {
       exercise_records: this.state.exercise_records,
       routines: this.state.routines,
       exercises: this.state.exercises,
-      addRoutine: this.addRoutine
+      addRoutine: this.addRoutine,
+      addRecord: this.addRecord
     };
 
     return (

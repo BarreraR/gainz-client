@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useEffect } from 'react-router-dom';
 import ApiContext from '../ApiContext';
 import ProgressComponent from '../Components/ProgressComponent';
 import './HomeMain.css';
@@ -8,6 +8,9 @@ export default function ExerciseMain(){
   const history = useHistory();
   const { user, exercise_records = [], routines = [] } = useContext(ApiContext);
 
+  useEffect({
+    
+  },[])
   // use effect will fix refresh error/ use useEffect to get updated data from server
   const routinesList = routines
     .filter(routine => routine.owner === user.id)
@@ -33,7 +36,7 @@ export default function ExerciseMain(){
   
 return (      
     <div className='Home_Main'>
-      {console.log(user) /* This is temporary, user will be created 100% in login */}
+      {console.log(user, exercise_records) /* This is temporary, user will be created 100% in login */}
       <h2>Profile: {user !== undefined ? user.name: ''}</h2>
 
       <div>

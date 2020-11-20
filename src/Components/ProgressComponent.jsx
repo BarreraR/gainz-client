@@ -25,7 +25,7 @@ export default function ProgressComponent() {
       <div key={`${recordId}`}>
         <strong>{date}</strong>
         <p>
-          Exercise: {exercise.name}
+          Exercise: {exercise.exercise}
           <br />
           Sets: {sets}
           <br />

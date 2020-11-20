@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import ApiContext from '../ApiContext';
-import './ExerciseMain.css'
+import config from '../config';
+import './ExerciseMain.css';
 
 export default function ExerciseMain() {
   const [inputs, setInputs] = useState([]); 
   const history = useHistory();
   const { exercise } = useParams();
-  const { exercises = [], user, exercise_records } = useContext(ApiContext);
+  const { exercises = [], user, exercise_records, addRecord } = useContext(ApiContext);
 
   const exerciseList = exercises.map(ex => 
     <option 
@@ -21,8 +22,7 @@ export default function ExerciseMain() {
 
     const exData = new FormData(e.target);
     const obj = {
-      'id': exercise_records.length+1,
-      'user_id': user.id,
+      'userId': user.id,
       'reps': [],
       'weights': [],
     };
@@ -30,11 +30,11 @@ export default function ExerciseMain() {
     for( let [key, value] of exData.entries()){
 
       if(key === 'exercise') {
-        if(value==='0'){
+        if(value==='0') {
         console.log('missing data'); 
         return; // needs to call function to render that data is missing 
-        }else{
-          obj[key] = parseInt(value);
+        } else {
+          obj[key] = exercises[parseInt(value) - 1];
         }
       }
       
@@ -52,7 +52,12 @@ export default function ExerciseMain() {
           console.log('missing data'); 
           return; // needs to call function to render that data is missing 
         } else {
-          obj.reps.push(parseInt(value));
+          obj.reps.push(
+            {
+              'set': obj.reps.length + 1, 
+              'reps': parseInt(value)
+            }
+          );
         }
       }
 
@@ -61,20 +66,49 @@ export default function ExerciseMain() {
           console.log('missing data'); 
           return; // needs to call function to render that data is missing 
         } else {
-          obj.weights.push(parseInt(value));
+          obj.weights.push(
+            {
+              'set': obj.weights.length + 1,
+              'weights': parseInt(value)
+            }
+          );
         }
       }
     }
 
     // add record object into server
-    if(exercise !== undefined) obj.exercise = exercises[parseInt(exercise) -1].name;
-    exercise_records.push(obj);
-    
-    console.log(exercise_records);
-    
-    history.push({
-      pathname:`/home`
-    });
+    if(exercise !== undefined) obj.exercise = exercises[parseInt(exercise) -1];
+    console.log( 'record obj', obj);
+
+    // exercise_records.push(obj);
+
+    fetch(`${config.API_ENDPOINT}/records`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    })
+    .then(res => {
+      if(!res.ok) return res.json().then(e => Promise.reject(e));
+      return res.json();
+    })
+    .then(record =>{
+
+      obj.recordId = record[0].id; 
+      obj.date = record[0].date_entered;
+      console.log(obj, 'new obj');
+
+      addRecord(obj);
+
+      console.log(exercise_records, 'records after new added');
+      history.push({
+        pathname:`/home`
+      });
+    })
+    .catch(e => {
+      console.log(e)
+    });  
   }
 
   function handleSets(e){

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ApiContext from '../ApiContext';
 import { useHistory } from 'react-router-dom';
 import './CreateRoutineMain.css';
@@ -15,7 +15,11 @@ export default function CreateRoutineMain() {
   const [ routine, setRoutine ] = useState([]);
   const [ eId, setEId ] = useState(0);
   const [ routineName, setRoutineName ] = useState('');
-  const [ exerciseList, setExerciseList] = useState(exercises); // use effect with api 
+  const [ exerciseList, setExerciseList] = useState([]); // use effect with api 
+
+  useEffect(() => {
+    setExerciseList(exercises);
+  }, [exercises]);
 
   function createExerciseList(exercises){
     return exercises
@@ -64,7 +68,7 @@ export default function CreateRoutineMain() {
     if(routine.length>0 && routineName.length > 0){
       
       const routineObj = {
-        id: routines.length+1, // temporary, will be created by server
+        // id: routines.length+1, // temporary, will be created by server
         owner: user.id, // will need to be changed when user creates
         name: routineName,
         exercises: routine 
@@ -84,6 +88,8 @@ export default function CreateRoutineMain() {
         return res.json();
       })
       .then(routine => {
+        routineObj.id = routine.id;
+        console.log(routineObj, routine[0].id);
         addRoutine(routineObj);
 
         history.push({
