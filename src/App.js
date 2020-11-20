@@ -63,7 +63,7 @@ class App extends Component {
   }
 
   addRecord = newRecord => {
-    this.setState({records: [...this.state.exercise_records, newRecord]});
+    this.setState({exercise_records: [...this.state.exercise_records, newRecord]});
   }
 
   renderNavRoutes(){

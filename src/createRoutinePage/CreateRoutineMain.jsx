@@ -88,8 +88,7 @@ export default function CreateRoutineMain() {
         return res.json();
       })
       .then(routine => {
-        routineObj.id = routine.id;
-        console.log(routineObj, routine[0].id);
+        routineObj.id = routine[0].id;
         addRoutine(routineObj);
 
         history.push({
