@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { useHistory, useEffect } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import ApiContext from '../ApiContext';
 import ProgressComponent from '../Components/ProgressComponent';
 import './HomeMain.css';
@@ -9,7 +9,7 @@ export default function ExerciseMain(){
   const { user, exercise_records = [], routines = [] } = useContext(ApiContext);
 
   useEffect({
-    
+
   },[])
   // use effect will fix refresh error/ use useEffect to get updated data from server
   const routinesList = routines
