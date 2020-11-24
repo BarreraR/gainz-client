@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
-import ApiContext from "../ApiContext";
+import React, { useContext } from 'react';
+import ApiContext from '../ApiContext';
+import moment from 'moment';
+import './ProgressComponent.css';
 
 export default function ProgressComponent() {
   const { exercise_records } = useContext(ApiContext);
@@ -8,7 +10,7 @@ export default function ProgressComponent() {
     return arr[arr.findIndex(s => s.set === set)];
   }
 
-  const progress = exercise_records.map((r) => {
+  const progress = exercise_records.map(r => {
     const { recordId, date, exercise, sets, weights, reps } = r;
     const setData = [];
 
@@ -22,8 +24,8 @@ export default function ProgressComponent() {
     }
 
     return (
-      <div key={`${recordId}`}>
-        <strong>{date}</strong>
+      <div className='Exercise_Record' tabIndex='0' key={`${recordId}`}>
+        <strong>{moment(date).format('LLLL')}</strong>
         <p>
           Exercise: {exercise.exercise}
           <br />
@@ -35,5 +37,5 @@ export default function ProgressComponent() {
     );
   });
 
-  return <>{progress}</>;
+  return <div className='Exercise_Record_List'>{progress}</div>;
 }

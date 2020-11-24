@@ -1,0 +1,35 @@
+.Landing_Nav {
+  list-style-type: none;
+  /* margin: 0; */
+  padding: 0; 
+  
+  font-size: 18px;
+  font-weight: 600;
+  
+  display: flex;
+  /* justify-content: space-evenly; */
+  
+  /* border-radius: 10px; */
+  /* border: 2px solid white; */
+}
+
+.Landing_Nav_Button {
+  background-color: black;
+  padding: 5px 0;
+  margin: 0 10px;
+  flex:1;
+  text-align: center;
+  color: Yellow; 
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.Landing_Nav_Button.active{
+  /* color: indigo; */
+  background-color: darkgray;
+}
+
+.Landing_Nav_Button:hover{
+  color: white;
+  background-color: gray;
+}

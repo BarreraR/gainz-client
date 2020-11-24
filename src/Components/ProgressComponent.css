@@ -1,0 +1,8 @@
+.Exercise_Record {
+  background: purple;
+  border-radius: 10px;
+  margin: 10px auto; 
+  padding: 10px 0;
+  color: yellow;
+  max-width: 300px;
+}

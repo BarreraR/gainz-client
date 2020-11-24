@@ -1,0 +1,22 @@
+.Register_Form {
+  border: 1px solid white;
+  text-align: center;
+  background: purple;
+  color: white;
+  border-radius: 10px;
+  margin: 10px auto;
+  max-width: 300px;
+  padding: 10px;
+}
+
+.Register_Form input {
+  margin-bottom: 10px;
+}
+.Register_Form button {
+  font-weight: 700;
+  background-color: yellow;
+  color: purple;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 15px;
+}
