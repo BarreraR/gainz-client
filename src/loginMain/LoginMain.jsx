@@ -3,8 +3,10 @@ import { useHistory } from "react-router-dom";
 import config from "../config";
 import TokenService from "../services/token-service";
 import "./LoginMain.css";
+import decode from 'jwt-decode';
+import ProgressComponent from "../Components/ProgressComponent";
 
-export default function LoginMain() {
+export default function LoginMain(props) {
   const history = useHistory();
   const [errorMessage, setError] = useState(null);
 
@@ -35,7 +37,15 @@ export default function LoginMain() {
         username.value = "";
         password.value = "";
         TokenService.saveAuthToken(res.authToken);
-        console.log(res);
+        console.log('before decoded')
+        const decodedToken = decode(res.authToken);
+      
+        const user = {
+          first_name: decodedToken.first_name,
+          last_name: decodedToken.last_name,          
+        }
+        props.updateUser(user);
+        console.log(decodedToken, ' decoded token');
         history.push(
           {
             pathname: 'home'

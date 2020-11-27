@@ -28,6 +28,10 @@ class App extends Component {
     exercises: [],
   }
 
+  updateUser(user){
+    this.setState({user});
+  }
+
   componentDidMount() {
     // this.setState({
     //   user : STORE.users[1], 
@@ -108,7 +112,9 @@ class App extends Component {
     return (
       <div>
         <Route exact path='/' component={LandingMain}/>
-        <Route exact path='/login' component={LoginMain}/>
+        <Route exact path='/login'>
+          <LoginMain updateUser={(user)=>this.updateUser(user)}/>
+        </Route>
         <Route exact path='/signup' component={RegisterMain}/>
 
         <Route exact path='/home' component={HomeMain}/>
