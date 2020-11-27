@@ -12,6 +12,7 @@ import MainNav from './mainNav/MainNav';
 import LoginMain from './loginMain/LoginMain';
 import RegisterMain from './registerMain/RegisterMain'; 
 import config from './config';
+import TokenService from './services/token-service';
 import './App.css';
 
 class App extends Component {
@@ -35,10 +36,21 @@ class App extends Component {
     //   exercises: STORE.exercises
     // });
 
+    const temp = TokenService.getAuthToken();
+    console.log(Buffer
+      .from(temp, 'base64')
+      .toString())
+    
+    console.log(temp)
+
     Promise.all([
       fetch(`${config.API_ENDPOINT}/exercises`),
       fetch(`${config.API_ENDPOINT}/routines`),
-      fetch(`${config.API_ENDPOINT}/records`)
+      fetch(`${config.API_ENDPOINT}/records`, {
+        headers: {
+          'authorization': `bearer ${TokenService.getAuthToken()}`
+        }
+      })
     ])
     .then(([exercisesRes, routinesRes, recordsRes]) => {
       if(!exercisesRes.ok)

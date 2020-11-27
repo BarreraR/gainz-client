@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import ApiContext from '../ApiContext';
 import config from '../config';
 import './ExerciseMain.css';
+import TokenService from '../services/token-service';
 
 export default function ExerciseMain() {
   const [inputs, setInputs] = useState([]); 
@@ -85,7 +86,8 @@ export default function ExerciseMain() {
     fetch(`${config.API_ENDPOINT}/records`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify(obj)
     })
