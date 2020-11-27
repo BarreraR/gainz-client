@@ -4,7 +4,6 @@ import config from "../config";
 import TokenService from "../services/token-service";
 import "./LoginMain.css";
 import decode from 'jwt-decode';
-import ProgressComponent from "../Components/ProgressComponent";
 
 export default function LoginMain(props) {
   const history = useHistory();

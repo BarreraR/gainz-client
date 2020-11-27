@@ -40,13 +40,6 @@ class App extends Component {
     //   exercises: STORE.exercises
     // });
 
-    const temp = TokenService.getAuthToken();
-    console.log(Buffer
-      .from(temp, 'base64')
-      .toString())
-    
-    console.log(temp)
-
     Promise.all([
       fetch(`${config.API_ENDPOINT}/exercises`),
       fetch(`${config.API_ENDPOINT}/routines`),
