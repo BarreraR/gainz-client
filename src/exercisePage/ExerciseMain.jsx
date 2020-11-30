@@ -9,7 +9,7 @@ export default function ExerciseMain() {
   const [inputs, setInputs] = useState([]); 
   const history = useHistory();
   const { exercise } = useParams();
-  const { exercises = [], user, exercise_records, addRecord } = useContext(ApiContext);
+  const { exercises = [], exercise_records, addRecord } = useContext(ApiContext);
 
   const exerciseList = exercises.map(ex => 
     <option 
@@ -23,7 +23,6 @@ export default function ExerciseMain() {
 
     const exData = new FormData(e.target);
     const obj = {
-      'userId': user.id,
       'reps': [],
       'weights': [],
     };
@@ -80,8 +79,6 @@ export default function ExerciseMain() {
     // add record object into server
     if(exercise !== undefined) obj.exercise = exercises[parseInt(exercise) -1];
     console.log( 'record obj', obj);
-
-    // exercise_records.push(obj);
 
     fetch(`${config.API_ENDPOINT}/records`, {
       method: 'POST',

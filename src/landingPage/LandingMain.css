@@ -1,0 +1,11 @@
+.Landing_Main h1, .Landing_Main_Dummy_User {
+  color: yellow;
+  text-align: center;
+}
+
+.Landing_Main p {
+  color: yellow;
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
+}

@@ -6,11 +6,9 @@ import './HomeMain.css';
 
 export default function ExerciseMain(){
   const history = useHistory();
-  const { user, exercise_records = [], routines = [] } = useContext(ApiContext);
+  const { user, routines} = useContext(ApiContext);
 
-  // use effect will fix refresh error/ use useEffect to get updated data from server
   const routinesList = routines
-    .filter(routine => routine.owner === user.id)
     .map(routine =>
       <option key={routine.id} value={routine.id}> 
         {routine.name}
@@ -29,12 +27,10 @@ export default function ExerciseMain(){
   //       id={record.recordId}
   //     />
   //   );
-  
-  
-return (      
+    
+  return (      
     <div className='Home_Main'>
-      {console.log(user, exercise_records) /* This is temporary, user will be created 100% in login */}
-      <h2>Profile: {user !== undefined ? user.name: ''}</h2>
+      <h2>Profile: {`${user.first_name} ${user.last_name}`}</h2>
 
       <div>
         <h3>Your Routines!</h3>

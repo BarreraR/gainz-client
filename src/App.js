@@ -1,121 +1,150 @@
-import React, { Component } from 'react';
-import STORE from './dummy-store';
-import { Route, Link } from 'react-router-dom';
-import ApiContext from './ApiContext'
-import LandingMain from './landingPage/LandingMain';
-import LandingNav from './landingNav/LandingNav';
-import HomeMain from './homePage/HomeMain';
-import RoutineMain from './routinePage/RoutineMain';
-import ExerciseMain from './exercisePage/ExerciseMain';
-import CreateRoutineMain from './createRoutinePage/CreateRoutineMain';
-import MainNav from './mainNav/MainNav';
-import LoginMain from './loginMain/LoginMain';
-import RegisterMain from './registerMain/RegisterMain'; 
-import config from './config';
-import TokenService from './services/token-service';
-import './App.css';
+import React, { Component } from "react";
+import STORE from "./dummy-store";
+import { Route, Link, Switch } from "react-router-dom";
+import ApiContext from "./ApiContext";
+import LandingMain from "./landingPage/LandingMain";
+import LandingNav from "./landingNav/LandingNav";
+import HomeMain from "./homePage/HomeMain";
+import RoutineMain from "./routinePage/RoutineMain";
+import ExerciseMain from "./exercisePage/ExerciseMain";
+import CreateRoutineMain from "./createRoutinePage/CreateRoutineMain";
+import MainNav from "./mainNav/MainNav";
+import LoginMain from "./loginMain/LoginMain";
+import RegisterMain from "./registerMain/RegisterMain";
+import PageNotFound from "./pageNotFound/PageNotFound";
+import config from "./config";
+import TokenService from "./services/token-service";
+import PrivateRoute from "./Components/PrivateRoute";
+import decode from "jwt-decode";
+import "./App.css";
 
 class App extends Component {
-  // does state contain users or just the individual user?
-  // only one user, token contains user data
-  // store token in local storage
-  // state destroyed on refresh
-  // on load, check if token exists and if valid
   state = {
-    user: {},      // users / no users only one token
-    exercise_records: [],   // should this be each exercise or the exercise data where the name is an enum? Use table instead of enum for future expansion
-    routines: [],  // back day, push day, monday, etc
+    user: {},
+    exercise_records: [],
+    routines: [],
     exercises: [],
+  };
+
+  updateUser(user) {
+    this.setState({ user, exercise_records: [], routines: [], exercises: [] });
   }
 
-  updateUser(user){
-    this.setState({user});
+  fetchData() {
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/exercises`),
+      fetch(`${config.API_ENDPOINT}/routines`, {
+        headers: {
+          authorization: `bearer ${TokenService.getAuthToken()}`,
+        },
+      }),
+      fetch(`${config.API_ENDPOINT}/records`, {
+        headers: {
+          authorization: `bearer ${TokenService.getAuthToken()}`,
+        },
+      }),
+    ])
+      .then(([exercisesRes, routinesRes, recordsRes]) => {
+        if (!exercisesRes.ok)
+          return exercisesRes.json().then((e) => Promise.reject(e));
+        if (!routinesRes.ok)
+          return routinesRes.json().then((e) => Promise.reject(e));
+        if (!recordsRes.ok)
+          return recordsRes.json().then((e) => Promise.reject(e));
+
+        return Promise.all([
+          exercisesRes.json(),
+          routinesRes.json(),
+          recordsRes.json(),
+        ]);
+      })
+      .then(([exercises, routines, exercise_records]) => {
+        const token = TokenService.getAuthToken();
+        const decodedToken = decode(token);
+
+        const user = {
+          first_name: decodedToken.first_name,
+          last_name: decodedToken.last_name,
+        };
+
+        this.setState({ user, exercises, routines, exercise_records });
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
   }
 
   componentDidMount() {
-    // this.setState({
-    //   user : STORE.users[1], 
-    //   exercise_records: STORE.exercise_records, 
-    //   routines: STORE.routines,
-    //   exercises: STORE.exercises
-    // });
+    if (TokenService.hasAuthToken()) this.fetchData();
+  }
 
-    Promise.all([
-      fetch(`${config.API_ENDPOINT}/exercises`),
-      fetch(`${config.API_ENDPOINT}/routines`),
-      fetch(`${config.API_ENDPOINT}/records`, {
-        headers: {
-          'authorization': `bearer ${TokenService.getAuthToken()}`
-        }
-      })
-    ])
-    .then(([exercisesRes, routinesRes, recordsRes]) => {
-      if(!exercisesRes.ok)
-        return exercisesRes.json().then(e=> Promise.reject(e));
-      if(!routinesRes.ok)
-        return routinesRes.json().then(e=> Promise.reject(e));
-      if(!recordsRes.ok)
-        return recordsRes.json().then(e=> Promise.reject(e));
+  addRoutine = (newRoutine) => {
+    this.setState({ routines: [...this.state.routines, newRoutine] });
+  };
 
-      return Promise.all([exercisesRes.json(), routinesRes.json(), recordsRes.json()])
-    })
-    .then(([exercises, routines, exercise_records]) => {
-      this.setState({user : STORE.users[0], exercises, routines, exercise_records});
-    })
-    .catch(error => {
-      console.error({error});
+  addRecord = (newRecord) => {
+    this.setState({
+      exercise_records: [...this.state.exercise_records, newRecord],
     });
-  }
+  };
 
-  addRoutine = newRoutine => {
-    this.setState({routines: [...this.state.routines, newRoutine]});
-  }
-
-  addRecord = newRecord => {
-    this.setState({exercise_records: [...this.state.exercise_records, newRecord]});
-  }
-
-  renderNavRoutes(){
+  renderNavRoutes() {
     return (
       <div>
-        {['/', '/login', '/signup'].map(path => 
-          <Route 
-            exact
-            key={path}
-            path={path}
-            component={LandingNav}
-          /> 
-        )}
+        <Switch>
+          {["/", "/login", "/signup"].map((path) => (
+            <Route exact key={path} path={path} component={LandingNav} />
+          ))}
 
-        {['/home', '/routine', '/add-exercise-data', '/add-routine']
-          .map(path =>
-            <Route 
-              key={path}
-              path={path}
-              component={MainNav}
-            />
-          )
-        }
-
+          {[
+            "/home",
+            "/routine/:routine",
+            "/add-exercise-data",
+            "/add-routine",
+            "/add-exercise-data/:exercise",
+          ].map((path) => (
+            <Route exact key={path} path={path}>
+              <MainNav updateUser={(user) => this.updateUser(user)} />
+            </Route>
+          ))}
+        </Switch>
       </div>
     );
   }
-  
-  renderMainRoutes(){
+
+  renderMainRoutes() {
     return (
       <div>
-        <Route exact path='/' component={LandingMain}/>
-        <Route exact path='/login'>
-          <LoginMain updateUser={(user)=>this.updateUser(user)}/>
-        </Route>
-        <Route exact path='/signup' component={RegisterMain}/>
+        <Switch>
+          <Route exact path="/" component={LandingMain} />
+          <Route exact path="/login">
+            <LoginMain loginUser={() => this.fetchData()} />
+          </Route>
+          <Route exact path="/signup" component={RegisterMain} />
 
-        <Route exact path='/home' component={HomeMain}/>
-        <Route exact path='/routine/:routine' component={RoutineMain}/>
-        <Route exact path='/add-exercise-data' component={ExerciseMain}/>
-        <Route exact path='/add-exercise-data/:exercise' component={ExerciseMain}/>
-        <Route exact path='/add-routine' component={CreateRoutineMain}/>
-
+          <PrivateRoute exact path={"/home"} component={HomeMain} />
+          <PrivateRoute
+            exact
+            path="/routine/:routine"
+            component={RoutineMain}
+          />
+          <PrivateRoute
+            exact
+            path="/add-exercise-data"
+            component={ExerciseMain}
+          />
+          <PrivateRoute
+            exact
+            path="/add-exercise-data/:exercise"
+            component={ExerciseMain}
+          />
+          <PrivateRoute
+            exact
+            path="/add-routine"
+            component={CreateRoutineMain}
+          />
+          <PrivateRoute component={PageNotFound} />
+        </Switch>
       </div>
     );
   }
@@ -127,17 +156,15 @@ class App extends Component {
       routines: this.state.routines,
       exercises: this.state.exercises,
       addRoutine: this.addRoutine,
-      addRecord: this.addRecord
+      addRecord: this.addRecord,
     };
 
     return (
       <ApiContext.Provider value={value}>
-        <div className='App'>
+        <div className="App">
           <header className="App_header">
-            <Link to='/'>
-              <h1>
-                Gainz
-              </h1>
+            <Link to={TokenService.hasAuthToken() ? "/home" : "/"}>
+              <h1>Gainz</h1>
             </Link>
           </header>
           <nav className="App_nav">{this.renderNavRoutes()}</nav>

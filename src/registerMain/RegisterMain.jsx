@@ -49,7 +49,7 @@ export default function RegisterMain() {
       .then(() => 
         history.push(
           {
-            pathname: 'home'
+            pathname: 'login'
           }
         )
       )
@@ -64,7 +64,7 @@ export default function RegisterMain() {
         </div>
 
         <h2>Welcome</h2>
-        <p>Please register to continue</p>
+        <p>Please register to continue <br/> All fields required</p>
         <label htmlFor='username'>Username </label>
         <br/>
         <input id='username' type='text' placeholder='user123'/>
@@ -76,7 +76,7 @@ export default function RegisterMain() {
         <label htmlFor='conf_password'>Confirm Password </label>
         <br/>
         <input id='conf_password' type='password' placeholder='password' onChange={e=>confPassEntered(e)}/>
-        {!(confPass===pass) && <><br/><span>Passwords do not match</span></>}
+        {!(confPass===pass) && <><br/><span>*Passwords do not match*</span></>}
         <br/>
         <label htmlFor='first_name'>First Name </label>
         <br/>

@@ -3,12 +3,10 @@ import ApiContext from '../ApiContext';
 import { useHistory } from 'react-router-dom';
 import './CreateRoutineMain.css';
 import config from '../config';
+import TokenService from '../services/token-service';
 
 export default function CreateRoutineMain() {
-  // TODO:
-  // when reload, exerciseList gets emptied... why? 
-  // when refresh, data added to context gets deleted
-  const { exercises = [], routines, user, addRoutine } = useContext(ApiContext);
+  const { exercises = [], routines, addRoutine } = useContext(ApiContext);
 
   const history = useHistory();
   
@@ -69,7 +67,7 @@ export default function CreateRoutineMain() {
       
       const routineObj = {
         // id: routines.length+1, // temporary, will be created by server
-        owner: user.id, // will need to be changed when user creates
+        // owner: user.id, // will need to be changed when user creates
         name: routineName,
         exercises: routine 
       }
@@ -79,7 +77,8 @@ export default function CreateRoutineMain() {
       fetch(`${config.API_ENDPOINT}/routines`,{
         method: 'POST',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'authorization': `bearer ${TokenService.getAuthToken()}`,
         },
         body: JSON.stringify(routineObj)
       })
