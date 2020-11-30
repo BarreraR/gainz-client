@@ -4,7 +4,7 @@ import config from '../config';
 import TokenService from '../services/token-service';
 import './LandingMain.css';
 
-export default function LandingMain() {
+export default function LandingMain(props) {
   const history = useHistory();
 
   function demoClicked(){
@@ -25,7 +25,7 @@ export default function LandingMain() {
       })
       .then((res) => {
         TokenService.saveAuthToken(res.authToken);
-        // props.loginUser();
+        props.loginUser();
         history.push(
           {
             pathname: 'home'
