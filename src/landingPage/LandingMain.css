@@ -9,3 +9,11 @@
   padding: 10px;
   border-radius: 10px;
 }
+
+.Landing_Main_Dummy_User:hover{
+  color: white;
+  background-color: indigo;
+  cursor: pointer;
+}
+
+

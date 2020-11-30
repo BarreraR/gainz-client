@@ -42,7 +42,7 @@ export default function LandingMain(props) {
       <p>User registration and login required.</p>
       <hr/>
       <p className='Landing_Main_Dummy_User' tabIndex='0' onClick={()=>demoClicked()}>
-        To test the application, use the following login user information:
+        To test the application, use the following login user information or click here:
         <br/>
         Username: User1
         <br/>
