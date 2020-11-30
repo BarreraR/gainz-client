@@ -116,7 +116,9 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route exact path="/" component={LandingMain} />
+          <Route exact path="/"> 
+            <LandingMain loginUser={() => this.fetchData()}/>
+          </Route >
           <Route exact path="/login">
             <LoginMain loginUser={() => this.fetchData()} />
           </Route>

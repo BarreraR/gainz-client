@@ -1,7 +1,39 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import config from '../config';
+import TokenService from '../services/token-service';
 import './LandingMain.css';
 
 export default function LandingMain() {
+  const history = useHistory();
+
+  function demoClicked(){
+    const user = { username: 'User1', password: 'Password@1' };
+
+    fetch(`${config.API_ENDPOINT}/auth/login`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        if(!res.ok) 
+          return res.json().then((e) => Promise.reject(e)); 
+        else 
+          return res.json();
+      })
+      .then((res) => {
+        TokenService.saveAuthToken(res.authToken);
+        // props.loginUser();
+        history.push(
+          {
+            pathname: 'home'
+          }
+        );
+      })
+  }
+
   return (
     <div className='Landing_Main'>
       <h1>Welcome to Gainz</h1>
@@ -9,7 +41,8 @@ export default function LandingMain() {
       <hr/>
       <p>User registration and login required.</p>
       <hr/>
-      <p className='Landing_Main_Dummy_User'>To test application, use the following login user information:
+      <p className='Landing_Main_Dummy_User' tabIndex='0' onClick={()=>demoClicked()}>
+        To test the application, use the following login user information:
         <br/>
         Username: User1
         <br/>

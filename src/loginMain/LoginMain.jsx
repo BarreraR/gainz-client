@@ -14,7 +14,6 @@ export default function LoginMain(props) {
     setError(null);
 
     const { username, password } = e.target;
-    console.log(username.value, password.value);
 
     const user = { username: username.value, password: password.value };
 
@@ -61,10 +60,10 @@ export default function LoginMain(props) {
         </div>
 
         <label htmlFor="username">Username </label>
-        <input id="username" type="text" placeholder="user123" />
+        <input id="username" type="text" placeholder="User1" />
         <br />
         <label htmlFor="password">Password </label>
-        <input id="password" type="password" placeholder="password" />
+        <input id="password" type="password" placeholder="Password@1" />
         <br />
         <button type="submit">Enter</button>
       </form>

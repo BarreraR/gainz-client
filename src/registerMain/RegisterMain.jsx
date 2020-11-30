@@ -67,24 +67,24 @@ export default function RegisterMain() {
         <p>Please register to continue <br/> All fields required</p>
         <label htmlFor='username'>Username </label>
         <br/>
-        <input id='username' type='text' placeholder='user123'/>
+        <input id='username' type='text' placeholder='User1'/>
         <br/>
         <label htmlFor='password'>Password </label>
         <br/>
-        <input id='password' type='password' placeholder='password' onChange={e=>passwordEntered(e)}/>
+        <input id='password' type='password' placeholder='Password@1' onChange={e=>passwordEntered(e)}/>
         <br/>
         <label htmlFor='conf_password'>Confirm Password </label>
         <br/>
-        <input id='conf_password' type='password' placeholder='password' onChange={e=>confPassEntered(e)}/>
+        <input id='conf_password' type='password' placeholder='Password@1' onChange={e=>confPassEntered(e)}/>
         {!(confPass===pass) && <><br/><span>*Passwords do not match*</span></>}
         <br/>
         <label htmlFor='first_name'>First Name </label>
         <br/>
-        <input id='first_name' type='text' placeholder='Bob'/>
+        <input id='first_name' type='text' placeholder='First'/>
         <br/>
         <label htmlFor='last_name'>Last Name </label>
         <br/>
-        <input id='last_name' type='text' placeholder='Ross'/>
+        <input id='last_name' type='text' placeholder='Last'/>
         <br/>
         <button type='submit'>Enter</button>
       </form>
