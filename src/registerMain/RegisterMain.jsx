@@ -31,7 +31,6 @@ export default function RegisterMain() {
       first_name: first_name.value,
       last_name: last_name.value,
     };
-    console.log(user);
     setError(null);
 
     fetch(`${config.API_ENDPOINT}/users`, {

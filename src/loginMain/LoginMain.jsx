@@ -42,7 +42,6 @@ export default function LoginMain(props) {
         );
       })
       .catch((res) => {
-        console.log("catch ", res);
         username.value = "";
         password.value = "";
         setError(res.error);

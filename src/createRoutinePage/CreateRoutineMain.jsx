@@ -6,7 +6,7 @@ import config from '../config';
 import TokenService from '../services/token-service';
 
 export default function CreateRoutineMain() {
-  const { exercises = [], routines, addRoutine } = useContext(ApiContext);
+  const { exercises = [], addRoutine } = useContext(ApiContext);
 
   const history = useHistory();
   
@@ -71,8 +71,6 @@ export default function CreateRoutineMain() {
         name: routineName,
         exercises: routine 
       }
-
-      console.log(JSON.stringify(routineObj));
 
       fetch(`${config.API_ENDPOINT}/routines`,{
         method: 'POST',

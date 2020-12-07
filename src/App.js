@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import STORE from "./dummy-store";
 import { Route, Link, Switch } from "react-router-dom";
 import ApiContext from "./ApiContext";
 import LandingMain from "./landingPage/LandingMain";
