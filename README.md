@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# Gainz API Client!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[LIVE GAINZ APP](https://gainz.vercel.app).
 
-## Available Scripts
+---
+## Description:
 
-In the project directory, you can run:
+This application stores exercises, routines, and exercise data (such as number of sets, reps, and the weights used). The Gainz application is used to track weightlifting progress. User registration and login required. Once logged in, token is provided which contains user information in order for specific data to be returned to the app.
 
-### `npm start`
+---
+## Landing Page
+*Page includes description of application and demo user. Contains a navigation bar to take user to registration or login page.*
+![LandingPage](./src/images/LandingPage.jpg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
+## Home Page
+*Page includes drop down menu to select from save routines for quick entry of excercises to be done for the day. Also displays user exercise data with date the exercise was entered.*
+![HomePage](./src/images/HomePage.jpg)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
+## Exercise Page / Add exercise data
+*Page allows user to enter exercise data. User will select exercise name, enter number of sets, and then entered the repetitions completed and weights used for each set.*
+![ExercisePage](./src/images/AddExercise.jpg)
 
-### `npm test`
+---
+## Routine Page / Select exercise from routine
+*User can select an exercise from their routine to enter the exercise information.*
+![RoutinesPage](./src/images/RoutinesPage.jpg)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+## Add Routine Page
+*User can create a routine by selecting from a list of exercises. If the user decides not to do a certain exercise, they can select the remove button next to it. Name for the routine is required.*
+![CreateRoutine](./src/images/CreateRoutine.jpg)
