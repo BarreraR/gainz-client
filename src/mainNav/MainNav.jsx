@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ProgressComponent from '../Components/ProgressComponent';
 import TokenService from '../services/token-service';
 import './MainNav.css';
 

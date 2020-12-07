@@ -13,7 +13,6 @@ export default function ProgressComponent() {
   const progress = exercise_records.map(r => {
     const { recordId, date, exercise, sets, weights, reps } = r;
     const setData = [];
-
     for (let i = 1; i <= sets; i++) {
       setData.push(
         <span key={`${recordId}${i}`}>

@@ -31,7 +31,6 @@ export default function ExerciseMain() {
 
       if(key === 'exercise') {
         if(value==='0') {
-        console.log('missing data'); 
         return; // needs to call function to render that data is missing 
         } else {
           obj[key] = exercises[parseInt(value) - 1];
@@ -40,7 +39,6 @@ export default function ExerciseMain() {
       
       if(key === 'sets'){
         if(value.length === 0){
-          console.log('missing data'); 
           return; // needs to call function to render that data is missing 
         } else {
           obj[key] = parseInt(value);
@@ -49,7 +47,6 @@ export default function ExerciseMain() {
 
       if(key.includes('reps')){
         if(value.length === 0){
-          console.log('missing data'); 
           return; // needs to call function to render that data is missing 
         } else {
           obj.reps.push(
@@ -63,7 +60,6 @@ export default function ExerciseMain() {
 
       if(key.includes('weight')){
         if(value.length === 0){
-          console.log('missing data'); 
           return; // needs to call function to render that data is missing 
         } else {
           obj.weights.push(
