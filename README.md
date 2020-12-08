@@ -14,7 +14,7 @@ This application stores exercises, routines, and exercise data (such as number o
 
 ---
 ## Home Page
-*Page includes drop down menu to select from save routines for quick entry of excercises to be done for the day. Also displays user exercise data with date the exercise was entered.*
+*Page includes drop down menu to select from save routines for quick entry of exercises to be done for the day. Also displays user exercise data with date the exercise was entered.*
 ![HomePage](./src/images/HomePage.jpg)
 
 ---
